@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class SideBar;
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -19,5 +21,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    SideBar* m_sideBar = nullptr;
 };
 #endif // MAINWINDOW_H

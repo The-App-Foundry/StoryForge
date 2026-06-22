@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "components/sidebar.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QLabel>
@@ -47,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     logoFrame->setFixedSize(26, 26);
     brandLayout->addWidget(logoFrame);
 
-    QLabel* labelAppTitle = new QLabel("THE FOUNDRY / STORY FORGE", brandBox);
+    QLabel* labelAppTitle = new QLabel("STORY FORGE", brandBox);
     labelAppTitle->setObjectName("labelAppTitle");
     brandLayout->addWidget(labelAppTitle);
     topBarLayout->addWidget(brandBox);
@@ -251,6 +252,21 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget* mainContentArea = new QWidget(centralWidget);
     mainContentArea->setObjectName("mainContentArea");
     mainContentArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    QHBoxLayout* contentLayout = new QHBoxLayout(mainContentArea);
+    contentLayout->setContentsMargins(0, 0, 0, 0);
+    contentLayout->setSpacing(0);
+
+    // --- NavRail (left side) ---
+    m_sideBar = new SideBar(mainContentArea);
+    contentLayout->addWidget(m_sideBar);
+
+    // --- Main content pane (right side) ---
+    QWidget* contentPane = new QWidget(mainContentArea);
+    contentPane->setObjectName("contentPane");
+    contentPane->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    contentLayout->addWidget(contentPane);
+
     mainLayout->addWidget(mainContentArea);
 
     // ==========================================

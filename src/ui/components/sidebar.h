@@ -2,20 +2,22 @@
 #define SIDEBAR_H
 
 #include <QWidget>
+#include <QVBoxLayout>
+#include <QButtonGroup>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class SideBar;
-}
-QT_END_NAMESPACE
+class NavRail;
+class ManuscriptPanel;
 
 class SideBar : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit SideBar(QWidget *parent = nullptr);
 
-signals:
+private:
+    NavRail*         m_navRail         = nullptr;
+    ManuscriptPanel* m_manuscriptPanel = nullptr;
 };
 
 #endif // SIDEBAR_H
