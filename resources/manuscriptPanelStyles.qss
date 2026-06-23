@@ -1,0 +1,140 @@
+/* ============================================================
+   MANUSCRIPT PANEL — append to resources/styles.qss
+   ============================================================ */
+
+
+
+/* ── Panel shell ──────────────────────────────────────────── */
+#manuscriptPanel {
+  background-color: #080d15;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Panel header bar ─────────────────────────────────────── */
+#manuscriptPanelHeader {
+  background-color: #080d15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+#manuscriptPanelTitle {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  font-weight: normal;
+  color: #556071;
+  letter-spacing: 1.5px;
+}
+#manuscriptSceneCount {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: #2e3a4a;
+}
+#manuscriptPanelSep {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+}
+#manuscriptBtnAll {
+  background: #8AD5C8;
+  color: #04110f;
+  border: 1px solid #8AD5C8;
+  padding: 4px 11px;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* ── Scroll area ──────────────────────────────────────────── */
+#manuscriptScrollArea,
+#manuscriptScrollContent {
+  background-color: transparent;
+  border: none;
+}
+#manuscriptScrollArea QScrollBar:vertical {
+  background: transparent;
+  width: 4px;
+  margin: 0px;
+}
+#manuscriptScrollArea QScrollBar::handle:vertical {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  min-height: 24px;
+}
+#manuscriptScrollArea QScrollBar::handle:vertical:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+#manuscriptScrollArea QScrollBar::add-line:vertical,
+#manuscriptScrollArea QScrollBar::sub-line:vertical {
+  height: 0px;
+}
+
+/* ── Act section header ───────────────────────────────────── */
+#actSectionHeader {
+  background-color: transparent;
+}
+#actHeaderRow {
+  background-color: transparent;
+}
+#actHeaderRow[hovered="true"] {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+#actChevron {
+  font-family: "DM Mono", monospace;
+  font-size: 7px;
+  color: #2e3a4a;
+}
+#actTitle {
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  font-weight: normal;
+  color: #3d4f63;
+  letter-spacing: 1px;
+}
+#actSceneCount {
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  color: #2e3a4a;
+}
+
+/* ── Scene row ────────────────────────────────────────────── */
+#sceneRow {
+  background-color: transparent;
+}
+#sceneRow[hovered="true"] {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+#sceneRowNumber {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: #2e3a4a;
+}
+#sceneRowTitle {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+#sceneRow[hovered="true"] #sceneRowTitle {
+  color: #cbd5e1;
+}
+#sceneRowPov {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: #3d4f63;
+}
+#sceneRowWordCount {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: #2e3a4a;
+}
+
+/* ── Placeholder pages (CAST, SCENES, etc.) ───────────────── */
+#manuscriptPlaceholder {
+  background-color: transparent;
+}
+#manuscriptPlaceholderLabel {
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  color: #2e3a4a;
+  letter-spacing: 1px;
+}

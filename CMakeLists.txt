@@ -17,7 +17,6 @@ set(TS_FILES StoryForge_en_US.ts)
 set(PROJECT_SOURCES
         src/main.cpp
         src/ui/mainwindow.cpp
-        src/ui/mainwindow.h
 
         ${TS_FILES}
 )
@@ -33,6 +32,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/ui/components/navrail.h src/ui/components/navrail.cpp
         resources/navRailStyles.qss
         src/ui/components/manuscriptpanel.h src/ui/components/manuscriptpanel.cpp
+        src/ui/components/actsectionheader.h src/ui/components/actsectionheader.cpp
+        src/ui/components/scenedata.h
+        src/ui/components/scenerow.h src/ui/components/scenerow.cpp
+        resources/manuscriptPanelStyles.qss
+        src/ui/components/topbar.h src/ui/components/topbar.cpp
+
+
 
     )
 # Define target properties for Android with Qt 6 as:
