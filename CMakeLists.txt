@@ -30,13 +30,17 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resources/styles.qss
         src/ui/components/sidebar.h src/ui/components/sidebar.cpp
         src/ui/components/navrail.h src/ui/components/navrail.cpp
-        resources/navRailStyles.qss
+        resources/navrailstyles.qss
         src/ui/components/manuscriptpanel.h src/ui/components/manuscriptpanel.cpp
         src/ui/components/actsectionheader.h src/ui/components/actsectionheader.cpp
         src/ui/components/scenedata.h
         src/ui/components/scenerow.h src/ui/components/scenerow.cpp
-        resources/manuscriptPanelStyles.qss
+        resources/manuscriptpanelstyles.qss
         src/ui/components/topbar.h src/ui/components/topbar.cpp
+        src/ui/components/storymenu.h src/ui/components/storymenu.cpp
+        src/ui/components/storymenurow.h src/ui/components/storymenurow.cpp
+        resources/storymenustyles.qss
+        resources/topbarstyles.qss
 
 
 

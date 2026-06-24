@@ -1,7 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>styles.qss</file>
-        <file>navRailStyles.qss</file>
-        <file>manuscriptPanelStyles.qss</file>
+        <file>navrailstyles.qss</file>
+        <file>manuscriptpanelstyles.qss</file>
+        <file>storymenustyles.qss</file>
+        <file>topbarstyles.qss</file>
     </qresource>
 </RCC>

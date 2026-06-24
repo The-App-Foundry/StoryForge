@@ -40,7 +40,6 @@
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  cursor: pointer;
   font-weight: 500;
 }
 
@@ -69,6 +68,16 @@
 }
 
 /* ── Act section header ───────────────────────────────────── */
+#addSceneBtn {
+  background-color: transparent;
+  border: none;
+  color: #8893a3;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 0px;
+  text-align: right;
+}
 #actSectionHeader {
   background-color: transparent;
 }
@@ -126,6 +135,13 @@
   font-family: "DM Mono", monospace;
   font-size: 9px;
   color: #2e3a4a;
+}
+
+#manuscriptBtnNewAct {
+  background-color: transparent;
+  font-family: "DM Mono", monospace;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  height: 30px;
 }
 
 /* ── Placeholder pages (CAST, SCENES, etc.) ───────────────── */
