@@ -4,13 +4,30 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QStyle>
+#include <QFontMetrics>
 
 static constexpr int kRowHeight  = 36;
 static constexpr int kDotSize    = 7;
 static constexpr int kDotLeft    = 14;  // px from widget left edge
 
+// static void setLabelTextFitting(QLabel* label, const QString& text, int maxWidth) {
+//     QFont font = label->font();
+//     font.setPointSize(12); // Reset to base size defined in QSS so it can scale up or down cleanly
+
+//     QFontMetrics fm(font);
+
+//     // Keep shrinking the font size until it fits perfectly within the allocated pixels
+//     while (fm.horizontalAdvance(text) > maxWidth && font.pointSize() > 6) {
+//         font.setPointSize(font.pointSize() - 1);
+//         fm = QFontMetrics(font);
+//     }
+
+//     label->setFont(font);
+//     label->setText(text);
+// }
+
 SceneRow::SceneRow(const SceneData& data, QWidget* parent)
-    : QWidget(parent)
+    : QFrame(parent)
     , m_data(data)
 {
     setObjectName(QStringLiteral("sceneRow"));
@@ -18,7 +35,6 @@ SceneRow::SceneRow(const SceneData& data, QWidget* parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     setCursor(Qt::PointingHandCursor);
 
-    // Left margin = dot slot width so labels never overlap the painted dot
     const int dotSlotWidth = kDotLeft + kDotSize + 10;
 
     QHBoxLayout* lay = new QHBoxLayout(this);
@@ -27,7 +43,7 @@ SceneRow::SceneRow(const SceneData& data, QWidget* parent)
 
     m_labelNumber = new QLabel(this);
     m_labelNumber->setObjectName(QStringLiteral("sceneRowNumber"));
-    m_labelNumber->setFixedWidth(26);
+    m_labelNumber->setFixedWidth(12);
     lay->addWidget(m_labelNumber);
 
     lay->addSpacing(8);
@@ -35,6 +51,7 @@ SceneRow::SceneRow(const SceneData& data, QWidget* parent)
     m_labelTitle = new QLabel(this);
     m_labelTitle->setObjectName(QStringLiteral("sceneRowTitle"));
     m_labelTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    m_labelTitle->setFixedWidth(100);
     lay->addWidget(m_labelTitle);
 
     lay->addSpacing(12);
@@ -45,7 +62,7 @@ SceneRow::SceneRow(const SceneData& data, QWidget* parent)
     m_labelPov->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     lay->addWidget(m_labelPov);
 
-    lay->addSpacing(12);
+    lay->addSpacing(20);
 
     m_labelWordCount = new QLabel(this);
     m_labelWordCount->setObjectName(QStringLiteral("sceneRowWordCount"));
@@ -69,8 +86,16 @@ void SceneRow::applyData()
     m_labelNumber->setText(
         QString::number(m_data.number).rightJustified(2, QLatin1Char('0')));
 
-    // Elide title to fit available label width (falls back to full string
-    // when the widget hasn't been laid out yet — resizeEvent will correct it).
+    // int totalAllocatedSpace = 235;
+    // int calculatedMaxW = this->width() > 0 ? (this->width() - totalAllocatedSpace) : 110;
+
+    // // Ensure we don't pass a crazy negative or ultra-squashed number
+    // if (calculatedMaxW < 110) {
+    //     calculatedMaxW = 110;
+    // }
+    // // Zap the old elidedText block and drop the scaling helper in!
+    // setLabelTextFitting(m_labelTitle, m_data.title, calculatedMaxW);
+
     const int availW = m_labelTitle->width() > 0 ? m_labelTitle->width() : 200;
     const QString elided = m_labelTitle->fontMetrics()
                                .elidedText(m_data.title, Qt::ElideRight, availW);
@@ -89,8 +114,6 @@ void SceneRow::setHovered(bool hovered)
     if (m_hovered == hovered)
         return;
     m_hovered = hovered;
-    // Dynamic property triggers the QSS [hovered="true"] selector.
-    // Must unpolish/polish so the style engine re-evaluates the property.
     setProperty("hovered", hovered);
     style()->unpolish(this);
     style()->polish(this);
@@ -121,17 +144,13 @@ void SceneRow::leaveEvent(QEvent* event)
 void SceneRow::resizeEvent(QResizeEvent* event)
 {
     QWidget::resizeEvent(event);
-    // Re-elide title now that we know the real label width.
     applyData();
 }
 
 void SceneRow::paintEvent(QPaintEvent* event)
 {
-    // QSS paints background first via base class call
     QWidget::paintEvent(event);
 
-    // Status dot — square, 7×7, color from SceneStatus
-    // QPainter here avoids per-instance setStyleSheet() cost
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);

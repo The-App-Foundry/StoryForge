@@ -5,7 +5,7 @@
 #include "scenerow.h"
 
 #include <QLabel>
-#include <QWidget>
+#include <QFrame>
 
 // ============================================================
 // ActSectionHeader
@@ -17,7 +17,7 @@
 // m_scenesContainer — layout adjusts automatically, no manual
 // height arithmetic required.
 // ============================================================
-class ActSectionHeader : public QWidget
+class ActSectionHeader : public QFrame
 {
     Q_OBJECT
 

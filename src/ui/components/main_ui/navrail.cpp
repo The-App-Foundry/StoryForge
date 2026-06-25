@@ -39,8 +39,8 @@ public:
         : QAbstractButton(parent), m_label(label)
     {
         setCheckable(true);
-        setFixedSize(48, 56);
-        setObjectName("navRailNavPill");
+        setFixedSize(53, 56);
+        setObjectName("navRailButton");
 
         // Build both coloured renderers up-front
         m_activeRenderer   = new QSvgRenderer(makeSvg(svgPaths, kAccent), this);
@@ -85,7 +85,7 @@ private:
 class FooterButton : public QWidget {
 public:
     explicit FooterButton(QWidget *parent = nullptr) : QWidget(parent) {
-        setFixedSize(48, 48);
+        setFixedSize(53, 48);
         setObjectName("navRailFooterButton");
 
         // SVG: outer rect + vertical divider (sidebar icon)
@@ -115,11 +115,13 @@ private:
 // ── NavRail ───────────────────────────────────────────────────────────────────
 
 NavRail::NavRail(QWidget *parent)
-    : QWidget{parent}
+    : QFrame{parent}
 {
+
     setObjectName("navRail");
-    setFixedWidth(48);
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+    setFixedWidth(53);
 
     auto* layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
@@ -131,7 +133,7 @@ NavRail::NavRail(QWidget *parent)
 
     buildFooter();
 
-    QFile styleFile(":/navRailStyles.qss");
+    QFile styleFile(":/navrailstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

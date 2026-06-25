@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 
-class SideBar;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -12,9 +10,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget* parent = nullptr);
     ~MainWindow() override;
-
-private:
-    SideBar* m_sideBar = nullptr;
 };
 
 #endif // MAINWINDOW_H

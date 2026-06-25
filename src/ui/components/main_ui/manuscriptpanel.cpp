@@ -1,16 +1,15 @@
 #include "manuscriptpanel.h"
-
+#include "actsectionheader.h"
 #include <QFrame>
 #include <QHBoxLayout>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QScrollBar>
-#include <QVBoxLayout>
 #include <QFile>
+#include <QLabel>
+#include <QPushButton>
+#include <QVBoxLayout>
+#include <QScrollArea>
+#include <QLineEdit>
+#include <QStackedWidget>
 
-// ── Section label map ───────────────────────────────────────────────────────
-// Used by showSection() to update the panel header label and switch pages.
-// Must match NavRail section names exactly (case-sensitive).
 struct SectionMeta {
     const char* name;       // as emitted by NavRail
     int         stackPage;  // index into m_stack
@@ -28,13 +27,15 @@ static constexpr SectionMeta kSections[] = {
 // ── Construction ────────────────────────────────────────────────────────────
 
 ManuscriptPanel::ManuscriptPanel(QWidget* parent)
-    : QWidget(parent)
+    : QFrame(parent)
 {
     setObjectName(QStringLiteral("manuscriptPanel"));
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+    setFixedWidth(287);
 
     QVBoxLayout* rootLay = new QVBoxLayout(this);
-    rootLay->setContentsMargins(0, 0, 0, 0);
+    rootLay->setContentsMargins(10, 0, 10, 0);
     rootLay->setSpacing(0);
 
     // ── Panel header bar ────────────────────────────────────
@@ -93,6 +94,7 @@ ManuscriptPanel::ManuscriptPanel(QWidget* parent)
 
     m_btnAll = new QPushButton(QStringLiteral("ALL"), chipsBar);
     m_btnAll->setObjectName(QStringLiteral("manuscriptBtnAll"));
+    m_btnAll->setCursor(Qt::PointingHandCursor);
     m_btnAll->setCheckable(true);
     m_btnAll->setChecked(true);
     chipsLay->addWidget(m_btnAll);
@@ -123,7 +125,7 @@ ManuscriptPanel::ManuscriptPanel(QWidget* parent)
     // DRAFT page is default
     m_stack->setCurrentIndex(kPageDraft);
 
-    QFile styleFile(":/manuscriptPanelStyles.qss");
+    QFile styleFile(":/manuscriptpanelstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());
@@ -157,7 +159,7 @@ void ManuscriptPanel::showSection(const QString& section)
             return;
         }
     }
-    // Unknown section — stay on current page, not a crash
+
     qWarning("ManuscriptPanel::showSection — unknown section '%s'",
              qPrintable(section));
 }
@@ -166,8 +168,6 @@ void ManuscriptPanel::showSection(const QString& section)
 
 void ManuscriptPanel::buildDraftPage()
 {
-    // The DRAFT page is a QScrollArea wrapping a VBox of ActSectionHeaders.
-    // This widget is added as stack page 0.
     QWidget* draftPage = new QWidget(m_stack);
     draftPage->setObjectName(QStringLiteral("manuscriptDraftPage"));
 
@@ -185,9 +185,20 @@ void ManuscriptPanel::buildDraftPage()
     m_scrollContent = new QWidget();
     m_scrollContent->setObjectName(QStringLiteral("manuscriptScrollContent"));
 
+    m_scrollContent->setFixedWidth(267);
+
     m_contentLayout = new QVBoxLayout(m_scrollContent);
-    m_contentLayout->setContentsMargins(0, 4, 0, 16);
+    m_contentLayout->setContentsMargins(6, 4, 15, 16);
     m_contentLayout->setSpacing(0);
+
+    m_btnNewAct = new QPushButton(QStringLiteral("+ NEW ACT"), m_scrollContent);
+    m_btnNewAct->setObjectName(QStringLiteral("manuscriptBtnNewAct"));
+    m_btnNewAct->setCursor(Qt::PointingHandCursor);
+    m_btnNewAct->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    connect(m_btnNewAct, &QPushButton::clicked, this, [this]() {});
+
+    m_contentLayout->addWidget(m_btnNewAct);
     m_contentLayout->addStretch(1);  // trailing stretch — acts insert before this
 
     m_scrollArea->setWidget(m_scrollContent);
@@ -208,7 +219,7 @@ void ManuscriptPanel::buildActWidgets()
                 this,   &ManuscriptPanel::sceneSelected);
 
         // Insert before trailing stretch to preserve bottom padding
-        const int insertPos = m_contentLayout->count() - 1;
+        const int insertPos = m_contentLayout->count() - 2;
         m_contentLayout->insertWidget(insertPos, header);
         m_actHeaders.append(header);
     }

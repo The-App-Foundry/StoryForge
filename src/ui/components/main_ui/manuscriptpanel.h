@@ -2,36 +2,17 @@
 #define MANUSCRIPTPANEL_H
 
 #include "scenedata.h"
-#include "actsectionheader.h"
+#include <QFrame>
 
-#include <QLabel>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QScrollArea>
-#include <QStackedWidget>
-#include <QVBoxLayout>
-#include <QWidget>
+class ActSectionHeader;
+class QLabel;
+class QLineEdit;
+class QPushButton;
+class QScrollArea;
+class QStackedWidget;
+class QVBoxLayout;
 
-// ============================================================
-// ManuscriptPanel
-//
-// Content panel beside the NavRail inside SideBar's QHBoxLayout.
-//
-// Internal structure:
-//   ManuscriptPanel (QVBoxLayout)
-//   ├── panelHeader  [SECTION TITLE]  [count]
-//   ├── separator    (1px QFrame)
-//   └── QStackedWidget
-//       ├── page 0: DRAFT  — QScrollArea → Act/Scene tree
-//       ├── page 1: CAST   — placeholder QWidget
-//       ├── page 2: SCENES — placeholder QWidget
-//       ├── page 3: PLACES — placeholder QWidget
-//       ├── page 4: PROPS  — placeholder QWidget
-//       └── page 5: NOTES  — placeholder QWidget
-//
-// showSection(QString) is the slot wired from NavRail via SideBar.
-// ============================================================
-class ManuscriptPanel : public QWidget
+class ManuscriptPanel : public QFrame
 {
     Q_OBJECT
 
@@ -71,6 +52,7 @@ private:
     QScrollArea*     m_scrollArea       = nullptr;
     QWidget*         m_scrollContent    = nullptr;
     QVBoxLayout*     m_contentLayout    = nullptr;
+    QPushButton*     m_btnNewAct        = nullptr;
 
     // Section → stack index lookup
     // Matches the NavRail button order (CAST=0, SCENES=1, PLACES=2, PROPS=3, NOTES=4)

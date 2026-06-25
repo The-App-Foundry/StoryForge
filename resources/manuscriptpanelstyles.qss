@@ -83,6 +83,7 @@
 }
 #actHeaderRow {
   background-color: transparent;
+  padding: 10px 6px 4px;
 }
 #actHeaderRow[hovered="true"] {
   background-color: rgba(255, 255, 255, 0.03);
@@ -97,7 +98,8 @@
   font-size: 8px;
   font-weight: normal;
   color: #3d4f63;
-  letter-spacing: 1px;
+  padding: 2px 0;
+  letter-spacing: 0.5px;
 }
 #actSceneCount {
   font-family: "DM Mono", monospace;
@@ -119,8 +121,7 @@
 }
 #sceneRowTitle {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 9px;
   color: #94a3b8;
 }
 #sceneRow[hovered="true"] #sceneRowTitle {

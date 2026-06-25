@@ -2,7 +2,7 @@
 #define SCENEROW_H
 
 #include "scenedata.h"
-#include <QWidget>
+#include <QFrame>
 #include <QLabel>
 
 // ============================================================
@@ -18,7 +18,7 @@
 // NOT via per-instance setStyleSheet() — that triggers a full
 // style engine repolish on every row construction.
 // ============================================================
-class SceneRow : public QWidget
+class SceneRow : public QFrame
 {
     Q_OBJECT
 

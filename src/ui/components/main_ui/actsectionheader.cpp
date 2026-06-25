@@ -4,9 +4,27 @@
 #include <QMouseEvent>
 #include <QStyle>
 #include <QVBoxLayout>
+#include <QPushButton>
+
+static void setLabelTextFitting(QLabel* label, const QString& text, int maxWidth) {
+    QFont font = label->font();
+    QFontMetrics fm(font);
+    QString optimizedText = text;
+
+    // If the text is too wide for our panel allotment, dial back the font size
+    int currentWidth = fm.horizontalAdvance(text);
+    while (currentWidth > maxWidth && font.pointSize() > 7) { // Don't go smaller than 7pt
+        font.setPointSize(font.pointSize() - 1);
+        fm = QFontMetrics(font);
+        currentWidth = fm.horizontalAdvance(text);
+    }
+
+    label->setFont(font);
+    label->setText(optimizedText);
+}
 
 ActSectionHeader::ActSectionHeader(const ActData& act, QWidget* parent)
-    : QWidget(parent)
+    : QFrame(parent)
     , m_act(act)
 {
     setObjectName(QStringLiteral("actSectionHeader"));
@@ -29,7 +47,7 @@ ActSectionHeader::ActSectionHeader(const ActData& act, QWidget* parent)
 
     m_labelChevron = new QLabel(m_headerRow);
     m_labelChevron->setObjectName(QStringLiteral("actChevron"));
-    m_labelChevron->setFixedWidth(12);
+    m_labelChevron->setFixedWidth(6);
     headerLay->addWidget(m_labelChevron);
 
     m_labelTitle = new QLabel(m_headerRow);
@@ -37,9 +55,18 @@ ActSectionHeader::ActSectionHeader(const ActData& act, QWidget* parent)
     m_labelTitle->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     headerLay->addWidget(m_labelTitle);
 
+    headerLay->addStretch(1);
+
+    QPushButton* addSceneBtn = new QPushButton(QStringLiteral("Add scene"), m_headerRow);
+    addSceneBtn->setObjectName("addSceneBtn");
+    addSceneBtn->setFixedHeight(20);
+    addSceneBtn->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    headerLay->addWidget(addSceneBtn);
+
+    headerLay->addSpacing(0);
+
     m_labelSceneCount = new QLabel(m_headerRow);
     m_labelSceneCount->setObjectName(QStringLiteral("actSceneCount"));
-    m_labelSceneCount->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     headerLay->addWidget(m_labelSceneCount);
 
     rootLay->addWidget(m_headerRow);
@@ -75,10 +102,20 @@ void ActSectionHeader::setExpanded(bool expanded)
 void ActSectionHeader::setActData(const ActData& act)
 {
     m_act = act;
-    m_labelTitle->setText(act.title.toUpper());
+
+    // Target width calculation: Panel is 287px total.
+    // Subtract your margins, chevron width, add button, and scene count.
+    // ~120px to 140px is a safe maximum boundary for the title text field.
+    int maxTitleWidth = 130;
+
+    // Use our new fitting function instead of raw setText
+    setLabelTextFitting(m_labelTitle, act.title.toUpper(), maxTitleWidth);
+
     m_labelSceneCount->setText(
         QString::number(act.scenes.size()) +
-        QLatin1String(act.scenes.size() == 1 ? " scene" : " scenes"));
+        QLatin1String(act.scenes.size() == 1 ? " scene" : " scenes")
+    );
+
     buildSceneRows();
     updateChevron();
 }

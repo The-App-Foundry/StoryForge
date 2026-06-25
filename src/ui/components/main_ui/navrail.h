@@ -1,12 +1,12 @@
 #ifndef NAVRAIL_H
 #define NAVRAIL_H
 
-#include <QWidget>
+#include <QFrame>
 #include <QButtonGroup>
 
 class QPushButton;
 
-class NavRail : public QWidget
+class NavRail : public QFrame
 {
     Q_OBJECT
 
