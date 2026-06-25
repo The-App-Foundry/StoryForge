@@ -1,8 +1,8 @@
 #include "mainwindow.h"
-#include "components/sidebar.h"
-#include "components/topbar.h"
-#include "components/manuscriptpanel.h"
-#include "components/scenedata.h"
+#include "components/nav/sidebar.h"
+#include "components/nav/topbar.h"
+#include "components/nav/manuscriptpanel.h"
+#include "components/nav/scenedata.h"
 
 #include <QButtonGroup>
 #include <QFile>

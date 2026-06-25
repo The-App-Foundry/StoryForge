@@ -28,17 +28,17 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         resources/resources.qrc
         resources/styles.qss
-        src/ui/components/sidebar.h src/ui/components/sidebar.cpp
-        src/ui/components/navrail.h src/ui/components/navrail.cpp
+        src/ui/components/nav/sidebar.h src/ui/components/nav/sidebar.cpp
+        src/ui/components/nav/navrail.h src/ui/components/nav/navrail.cpp
         resources/navrailstyles.qss
-        src/ui/components/manuscriptpanel.h src/ui/components/manuscriptpanel.cpp
-        src/ui/components/actsectionheader.h src/ui/components/actsectionheader.cpp
-        src/ui/components/scenedata.h
-        src/ui/components/scenerow.h src/ui/components/scenerow.cpp
+        src/ui/components/nav/manuscriptpanel.h src/ui/components/nav/manuscriptpanel.cpp
+        src/ui/components/nav/actsectionheader.h src/ui/components/nav/actsectionheader.cpp
+        src/ui/components/nav/scenedata.h
+        src/ui/components/nav/scenerow.h src/ui/components/nav/scenerow.cpp
         resources/manuscriptpanelstyles.qss
-        src/ui/components/topbar.h src/ui/components/topbar.cpp
-        src/ui/components/storymenu.h src/ui/components/storymenu.cpp
-        src/ui/components/storymenurow.h src/ui/components/storymenurow.cpp
+        src/ui/components/nav/topbar.h src/ui/components/nav/topbar.cpp
+        src/ui/components/nav/storymenu.h src/ui/components/nav/storymenu.cpp
+        src/ui/components/nav/storymenurow.h src/ui/components/nav/storymenurow.cpp
         resources/storymenustyles.qss
         resources/topbarstyles.qss
 
