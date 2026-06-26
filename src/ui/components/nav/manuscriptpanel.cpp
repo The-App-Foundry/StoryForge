@@ -1,5 +1,6 @@
 #include "manuscriptpanel.h"
 #include "actsectionheader.h"
+#include "../../meta.h"
 #include <QFrame>
 #include <QHBoxLayout>
 #include <QFile>
@@ -9,20 +10,6 @@
 #include <QScrollArea>
 #include <QLineEdit>
 #include <QStackedWidget>
-
-struct SectionMeta {
-    const char* name;       // as emitted by NavRail
-    int         stackPage;  // index into m_stack
-};
-
-static constexpr SectionMeta kSections[] = {
-    { "DRAFT",  0 },
-    { "CAST",   1 },
-    { "SCENES", 2 },
-    { "PLACES", 3 },
-    { "PROPS",  4 },
-    { "NOTES",  5 },
-    };
 
 // ── Construction ────────────────────────────────────────────────────────────
 

@@ -10,22 +10,6 @@ static constexpr int kRowHeight  = 36;
 static constexpr int kDotSize    = 7;
 static constexpr int kDotLeft    = 14;  // px from widget left edge
 
-// static void setLabelTextFitting(QLabel* label, const QString& text, int maxWidth) {
-//     QFont font = label->font();
-//     font.setPointSize(12); // Reset to base size defined in QSS so it can scale up or down cleanly
-
-//     QFontMetrics fm(font);
-
-//     // Keep shrinking the font size until it fits perfectly within the allocated pixels
-//     while (fm.horizontalAdvance(text) > maxWidth && font.pointSize() > 6) {
-//         font.setPointSize(font.pointSize() - 1);
-//         fm = QFontMetrics(font);
-//     }
-
-//     label->setFont(font);
-//     label->setText(text);
-// }
-
 SceneRow::SceneRow(const SceneData& data, QWidget* parent)
     : QFrame(parent)
     , m_data(data)

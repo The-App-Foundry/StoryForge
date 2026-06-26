@@ -1,0 +1,9 @@
+#draftToolBar {
+  background-color: #070c12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#navRailButton {
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+}

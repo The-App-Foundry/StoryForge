@@ -2,9 +2,8 @@
 #define NAVRAIL_H
 
 #include <QFrame>
-#include <QButtonGroup>
 
-class QPushButton;
+class QButtonGroup;
 
 class NavRail : public QFrame
 {
@@ -21,6 +20,7 @@ private:
     void buildFooter();
 
     QButtonGroup* m_navGroup = nullptr;
+    bool m_hovered = false;
 };
 
 #endif // NAVRAIL_H

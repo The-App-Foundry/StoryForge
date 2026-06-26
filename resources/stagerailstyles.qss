@@ -1,0 +1,46 @@
+#stageRail {
+  background-color: #080d15;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+#labelStageTag {
+  font-family: "DM Mono", monospace;
+  font-size: 8px;
+  color: #556071;
+  font-weight: normal;
+  margin-right: 16px;
+}
+#stageButton {
+  background: transparent;
+  border: none;
+  border-radius: 0px;
+  color: #556071;
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  font-weight: normal;
+  padding: 0px 4px;
+  text-align: center;
+}
+#stageButton:hover {
+  color: #cbd5e1;
+}
+#stageButton:checked {
+  color: #7bf0db;
+  font-weight: bold;
+}
+#stageButton[completed="true"] {
+  color: green;
+}
+#stageIndicatorDot {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+}
+#stageIndicatorDot[completed="true"] {
+  background-color: green;
+}
+#stageLine {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: none;
+}
+#stageLine[completed="true"] {
+  background-color: green;
+}

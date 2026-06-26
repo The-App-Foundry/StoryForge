@@ -3,7 +3,6 @@
 #include "components/nav/topbar.h"
 #include "components/nav/manuscriptpanel.h"
 #include "components/nav/scenedata.h"
-
 #include <QButtonGroup>
 #include <QFile>
 #include <QFrame>
@@ -34,71 +33,6 @@ MainWindow::MainWindow(QWidget* parent)
 
     TopBar* topBar = new TopBar(centralWidget);
     mainLayout->addWidget(topBar);
-
-    // ══════════════════════════════════════════
-    // 3. ROW 2: STAGE STRIP RAIL (36px)
-    // ══════════════════════════════════════════
-    QWidget* stageStripRail = new QWidget(centralWidget);
-    stageStripRail->setObjectName(QStringLiteral("stageStripRail"));
-    stageStripRail->setFixedHeight(36);
-    stageStripRail->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-
-    QHBoxLayout* stageStripLayout = new QHBoxLayout(stageStripRail);
-    stageStripLayout->setContentsMargins(18, 0, 18, 0);
-    stageStripLayout->setSpacing(0);
-
-    QLabel* labelStageTag = new QLabel(QStringLiteral("STAGE"), stageStripRail);
-    labelStageTag->setObjectName(QStringLiteral("labelStageTag"));
-    stageStripLayout->addWidget(labelStageTag);
-
-    QButtonGroup* stageGroup = new QButtonGroup(this);
-    stageGroup->setExclusive(true);
-
-    const QStringList phases = {
-        QStringLiteral("CONCEPT"), QStringLiteral("DRAFT"),
-        QStringLiteral("EDITING"), QStringLiteral("REVISION"),
-        QStringLiteral("FINAL"),   QStringLiteral("PUBLISH")
-    };
-
-    for (int i = 0; i < phases.size(); ++i) {
-        const QString& phaseName = phases[i];
-
-        QWidget* seg = new QWidget(stageStripRail);
-        seg->setObjectName(QStringLiteral("stageSegmentWidget"));
-        QHBoxLayout* segLayout = new QHBoxLayout(seg);
-        segLayout->setContentsMargins(0, 0, 0, 0);
-        segLayout->setSpacing(8);
-
-        QPushButton* btn = new QPushButton(phaseName, seg);
-        btn->setObjectName(QStringLiteral("stageButton"));
-        btn->setCheckable(true);
-        btn->setFixedHeight(28);
-        if (phaseName == QLatin1String("CONCEPT"))
-            btn->setChecked(true);
-        stageGroup->addButton(btn);
-        segLayout->addWidget(btn);
-
-        QFrame* dot = new QFrame(seg);
-        dot->setObjectName(QStringLiteral("stageIndicatorDot"));
-        dot->setFixedSize(5, 5);
-        dot->setProperty("activePhase", phaseName == QLatin1String("CONCEPT"));
-        segLayout->addWidget(dot);
-
-        if (i < phases.size() - 1) {
-            QFrame* line = new QFrame(seg);
-            line->setObjectName(QStringLiteral("stageTimelineLine"));
-            line->setFrameShape(QFrame::HLine);
-            line->setFrameShadow(QFrame::Plain);
-            line->setFixedHeight(1);
-            line->setFixedWidth(18);
-            segLayout->addWidget(line);
-        }
-
-        stageStripLayout->addWidget(seg);
-    }
-
-    stageStripLayout->addStretch(1);
-    mainLayout->addWidget(stageStripRail);
 
     // ══════════════════════════════════════════
     // 4. MAIN WORKSPACE CANVAS

@@ -1,6 +1,9 @@
 #include "navrail.h"
+#include "navpillwidget.h"
+#include "../../utils/graphicsutils.h"
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <QButtonGroup>
 #include <QAbstractButton>
 #include <QFile>
 #include <QLabel>
@@ -10,78 +13,11 @@
 #include <QFont>
 #include <QFontDatabase>
 #include <QSvgRenderer>
+#include <QStyle>
+#include <QMouseEvent>
 
-// ── Shared helpers ────────────────────────────────────────────────────────────
-
-// Build a complete inline SVG string, substituting the stroke colour so
-// QSvgRenderer (which doesn't support CSS `currentColor`) can render it.
-static QByteArray makeSvg(const QString& paths, const QColor& stroke)
-{
-    return QString(
-        "<svg xmlns='http://www.w3.org/2000/svg' "
-        "width='18' height='18' viewBox='0 0 24 24' "
-        "fill='none' stroke='%1' stroke-width='1.6' "
-        "stroke-linecap='round' stroke-linejoin='round'>%2</svg>"
-    ).arg(stroke.name(), paths).toUtf8();
-}
-
-static constexpr QColor kAccent  { 0x7b, 0xf0, 0xdb };
 static constexpr QColor kFaint   { 0x7a, 0x7a, 0x96 };
 
-// ── NavPillWidget ─────────────────────────────────────────────────────────────
-// Reusable pill for every nav-section button (CAST / SCENES / PLACES / PROPS / NOTES).
-// Inherits QAbstractButton so it integrates with QButtonGroup for exclusivity.
-class NavPillWidget : public QAbstractButton {
-public:
-    explicit NavPillWidget(const QString& label,
-                           const QString& svgPaths,
-                           QWidget *parent = nullptr)
-        : QAbstractButton(parent), m_label(label)
-    {
-        setCheckable(true);
-        setFixedSize(53, 56);
-        setObjectName("navRailButton");
-
-        // Build both coloured renderers up-front
-        m_activeRenderer   = new QSvgRenderer(makeSvg(svgPaths, kAccent), this);
-        m_inactiveRenderer = new QSvgRenderer(makeSvg(svgPaths, kFaint),  this);
-    }
-
-protected:
-    void paintEvent(QPaintEvent *) override {
-        QPainter p(this);
-        p.setRenderHint(QPainter::Antialiasing);
-
-        const bool  active = isChecked();
-        const QColor& col  = active ? kAccent : kFaint;
-
-        // Left indicator bar – visible only when active
-        if (active)
-            p.fillRect(0, 8, 2, height() - 16, kAccent);
-
-        // Icon
-        const int iconX = (width() - 18) / 2;
-        QSvgRenderer* rdr = active ? m_activeRenderer : m_inactiveRenderer;
-        rdr->render(&p, QRectF(iconX, 10, 18, 18));
-
-        // Label
-        QFont font("DM Mono");
-        font.setPixelSize(8);
-        font.setLetterSpacing(QFont::AbsoluteSpacing, 0.5);
-        p.setFont(font);
-        p.setPen(col);
-        p.drawText(QRect(0, 32, width(), 16),
-                   Qt::AlignHCenter | Qt::AlignVCenter, m_label);
-    }
-
-private:
-    QString        m_label;
-    QSvgRenderer*  m_activeRenderer   = nullptr;
-    QSvgRenderer*  m_inactiveRenderer = nullptr;
-};
-
-// ── FooterButton ──────────────────────────────────────────────────────────────
-// Sidebar-toggle at the bottom of the rail. Draws the panel/sidebar icon.
 class FooterButton : public QWidget {
 public:
     explicit FooterButton(QWidget *parent = nullptr) : QWidget(parent) {
@@ -92,7 +28,7 @@ public:
         const QString paths =
             "<rect x='3' y='4' width='18' height='16' rx='1'/>"
             "<path d='M9 4v16'/>";
-        m_renderer = new QSvgRenderer(makeSvg(paths, kFaint), this);
+        m_renderer = new QSvgRenderer(GraphicsUtils::makeSvg(paths, kFaint), this);
     }
 
 protected:
@@ -111,8 +47,6 @@ protected:
 private:
     QSvgRenderer* m_renderer = nullptr;
 };
-
-// ── NavRail ───────────────────────────────────────────────────────────────────
 
 NavRail::NavRail(QWidget *parent)
     : QFrame{parent}
@@ -153,6 +87,7 @@ void NavRail::buildNavButtons()
         { "DRAFT",
          "<path d='M4 4h11l5 5v11H4z'/>"
          "<path d='M15 4v5h5M8 13h8M8 17h8'/>" },
+
         { "CAST",
           "<circle cx='12' cy='8' r='4'/>"
           "<path d='M4 21c0-4 3.6-6 8-6s8 2 8 6'/>" },
@@ -176,8 +111,13 @@ void NavRail::buildNavButtons()
 
     for (const auto& [label, svgPaths] : items) {
         const QString sectionName = label;
-        auto* pill = new NavPillWidget(sectionName, svgPaths, this);
+
+        auto* pill = new NavPillWidget(sectionName, svgPaths, 18, NavPillWidget::Orientation::Vertical,  this);
         pill->setProperty("navSection", sectionName);
+        pill->setFixedSize(53, 56);
+
+        if (label == "DRAFT")
+            pill->setChecked(true);
 
         m_navGroup->addButton(pill);
         static_cast<QVBoxLayout*>(layout())->addWidget(pill);

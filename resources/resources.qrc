@@ -5,5 +5,7 @@
         <file>manuscriptpanelstyles.qss</file>
         <file>storymenustyles.qss</file>
         <file>topbarstyles.qss</file>
+        <file>stagerailstyles.qss</file>
+        <file>conceptrailstyles.qss</file>
     </qresource>
 </RCC>

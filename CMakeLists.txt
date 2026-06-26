@@ -41,6 +41,17 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/ui/components/nav/storymenurow.h src/ui/components/nav/storymenurow.cpp
         resources/storymenustyles.qss
         resources/topbarstyles.qss
+        src/ui/components/editor/editorlayout.h src/ui/components/editor/editorlayout.cpp
+        src/ui/meta.h
+        src/ui/components/nav/conceptrail.h src/ui/components/nav/conceptrail.cpp
+        src/ui/components/nav/navpillwidget.cpp
+        src/ui/components/nav/navpillwidget.h
+        src/ui/utils/graphicsutils.h src/ui/utils/graphicsutils.cpp
+        src/ui/components/nav/stagerail.h src/ui/components/nav/stagerail.cpp
+        src/ui/components/nav/titlebar.h src/ui/components/nav/titlebar.cpp
+        resources/stagerailstyles.qss
+        resources/conceptrailstyles.qss
+
 
 
 

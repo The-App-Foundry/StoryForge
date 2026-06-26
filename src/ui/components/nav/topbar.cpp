@@ -1,48 +1,30 @@
 #include "topbar.h"
-#include "storymenu.h"
-#include <QHBoxLayout>
-#include <QLabel>
+#include "conceptrail.h"
+#include "titlebar.h"
+#include "stagerail.h"
+#include <QVBoxLayout>
 #include <QFile>
+#include <QLabel>
 
 TopBar::TopBar(QWidget *parent)
-    : QFrame{parent}
+    : QWidget{parent}
 {
-    setFixedHeight(50);
-    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    setObjectName(QStringLiteral("topBarContainer"));
+    setObjectName("topBar");
 
-    QHBoxLayout* topBarLayout = new QHBoxLayout(this);
-    topBarLayout->setContentsMargins(16, 0, 16, 0);
-    topBarLayout->setSpacing(18);
+    auto* layout = new QVBoxLayout(this);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(0);
 
-    // Brand box
-    QWidget* brandBox = new QWidget(this);
-    QHBoxLayout* brandLayout = new QHBoxLayout(brandBox);
-    brandLayout->setContentsMargins(0, 0, 0, 0);
-    brandLayout->setSpacing(11);
+    m_titleBar      = new TitleBar(this);
+    m_stageRail     = new StageRail(this);
+    m_conceptRail   = new ConceptRail(this);
 
-    QFrame* logoFrame = new QFrame(brandBox);
-    logoFrame->setObjectName(QStringLiteral("logoFrame"));
-    logoFrame->setFixedSize(26, 26);
-    brandLayout->addWidget(logoFrame);
+    connect(m_stageRail, &StageRail::phaseChanged,
+            this, &TopBar::onPhaseChanged);
 
-    QLabel* labelAppTitle = new QLabel(QStringLiteral("STORY FORGE"), brandBox);
-    labelAppTitle->setObjectName(QStringLiteral("labelAppTitle"));
-    brandLayout->addWidget(labelAppTitle);
-    topBarLayout->addWidget(brandBox);
-
-    QFrame* topDivider = new QFrame(this);
-    topDivider->setObjectName(QStringLiteral("topDivider"));
-    topDivider->setFrameShape(QFrame::VLine);
-    topDivider->setFrameShadow(QFrame::Plain);
-    topDivider->setFixedWidth(1);
-    topDivider->setFixedHeight(30);
-    topBarLayout->addWidget(topDivider);
-
-    StoryMenu* storyMenu = new StoryMenu(this);
-    topBarLayout->addWidget(storyMenu);
-
-    topBarLayout->addStretch(1);
+    layout->addWidget(m_titleBar);
+    layout->addWidget(m_stageRail);
+    layout->addWidget(m_conceptRail);
 
     QFile styleFile(":/topbarstyles.qss");
 
@@ -50,5 +32,16 @@ TopBar::TopBar(QWidget *parent)
         QString styleSheet = QLatin1String(styleFile.readAll());
         this->setStyleSheet(styleSheet);
         styleFile.close();
+    }
+}
+
+void TopBar::onPhaseChanged(const QString& phase)
+{
+    m_phaseLabel = phase;
+
+    if(phase == "CONCEPT"){
+        m_conceptRail->show();
+    } else {
+        m_conceptRail->hide();
     }
 }
