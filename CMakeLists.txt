@@ -9,8 +9,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Svg LinguistTools)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg LinguistTools)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Svg SvgWidgets LinguistTools)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Svg SvgWidgets LinguistTools)
 
 set(TS_FILES StoryForge_en_US.ts)
 
@@ -41,7 +41,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/ui/components/nav/storymenurow.h src/ui/components/nav/storymenurow.cpp
         resources/storymenustyles.qss
         resources/topbarstyles.qss
-        src/ui/components/editor/editorlayout.h src/ui/components/editor/editorlayout.cpp
+
         src/ui/meta.h
         src/ui/components/nav/conceptrail.h src/ui/components/nav/conceptrail.cpp
         src/ui/components/nav/navpillwidget.cpp
@@ -51,9 +51,14 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/ui/components/nav/titlebar.h src/ui/components/nav/titlebar.cpp
         resources/stagerailstyles.qss
         resources/conceptrailstyles.qss
-
-
-
+        src/ui/views/concept/conceptview.h src/ui/views/concept/conceptview.cpp
+        src/ui/views/concept/premise/premise.h src/ui/views/concept/premise/premise.cpp
+        resources/premisestyles.qss
+        src/ui/components/editor/concept/premise/emptystatewidget.h src/ui/components/editor/concept/premise/emptystatewidget.cpp
+        resources/icons/document.svg
+        resources/icons/edit.svg
+        src/ui/components/buttons/iconbutton.h src/ui/components/buttons/iconbutton.cpp
+        src/ui/components/editor/concept/premise/editstate.h src/ui/components/editor/concept/premise/editstate.cpp
 
     )
 # Define target properties for Android with Qt 6 as:
@@ -78,7 +83,13 @@ else()
     qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} ${TS_FILES})
 endif()
 
-target_link_libraries(StoryForge PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg)
+target_link_libraries(StoryForge PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Svg
+    Qt${QT_VERSION_MAJOR}::SvgWidgets
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::Core
+)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an

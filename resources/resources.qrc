@@ -7,5 +7,8 @@
         <file>topbarstyles.qss</file>
         <file>stagerailstyles.qss</file>
         <file>conceptrailstyles.qss</file>
+        <file>premisestyles.qss</file>
+        <file>icons/document.svg</file>
+        <file>icons/edit.svg</file>
     </qresource>
 </RCC>
