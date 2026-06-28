@@ -29,6 +29,11 @@ void NavPillWidget::paintEvent(QPaintEvent *) {
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
 
+    QPen borderPen(QColor(255, 255, 255, 18));  // rgba(255, 255, 255, 0.07)
+    borderPen.setWidth(1);
+    p.setPen(borderPen);
+    p.drawLine(width() - 1, 0, width() - 2, height());  // right border
+
     const bool  active = isChecked() || property("hovered").toBool();
     const QColor& col  = active ? kAccent : kFaint;
 
@@ -39,7 +44,7 @@ void NavPillWidget::paintEvent(QPaintEvent *) {
         const int iconX = (width() - m_svgSize) / 2;
         bool shouldUseActive = active;
         QSvgRenderer* rdr = shouldUseActive ? m_activeRenderer : m_inactiveRenderer;
-        rdr->render(&p, QRectF(iconX, 10, m_svgSize, m_svgSize));
+        rdr->render(&p, QRectF(iconX, 10, m_svgSize, m_svgSize)); // icon
 
         QFont font("DM Mono");
         font.setPixelSize(8);
@@ -47,7 +52,7 @@ void NavPillWidget::paintEvent(QPaintEvent *) {
         p.setFont(font);
         p.setPen(col);
         p.drawText(QRect(0, 32, width(), 16),
-                   Qt::AlignHCenter | Qt::AlignVCenter, m_label);
+                   Qt::AlignHCenter | Qt::AlignVCenter, m_label); // label
     } else {
         if (active)
             p.fillRect(0, height() - 2, width(), 2, kAccent);

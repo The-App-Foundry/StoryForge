@@ -1,8 +1,6 @@
 #include "mainwindow.h"
-#include "components/nav/sidebar.h"
 #include "components/nav/topbar.h"
-#include "components/nav/manuscriptpanel.h"
-#include "components/nav/scenedata.h"
+#include "views/concept/conceptview.h"
 #include <QButtonGroup>
 #include <QFile>
 #include <QFrame>
@@ -45,51 +43,18 @@ MainWindow::MainWindow(QWidget* parent)
     contentLayout->setContentsMargins(0, 0, 0, 0);
     contentLayout->setSpacing(0);
 
-    // SideBar (NavRail + ManuscriptPanel)
-    SideBar* sideBar = new SideBar(mainContentArea);
-    contentLayout->addWidget(sideBar);
-
-    // ── Seed manuscript data ─────────────────────────────────
-    // Access ManuscriptPanel through SideBar.
-    // SideBar exposes the panel via accessor for data seeding.
-    // For now we call it here; in a real app the model layer feeds it.
-    {
-        QList<ActData> manuscript;
-
-        ActData act1;
-        act1.title = QStringLiteral("Act I — The Departure");
-        act1.scenes = {
-                        { 1, QStringLiteral("Cold Open: The Signal Awakens"),  QStringLiteral("Ryland"), 1240, SceneStatus::Final     },
-                        { 2, QStringLiteral("The Briefing Room"),       QStringLiteral("Ryland"),  890, SceneStatus::Revised   },
-                        { 3, QStringLiteral("Departure Protocol"),      QStringLiteral("Ryland"),    0, SceneStatus::NeedsWork },
-                        };
-
-        ActData act2;
-        act2.title = QStringLiteral("Act II — The Void");
-        act2.scenes = {
-                        { 4, QStringLiteral("Waking Up Alone"),          QStringLiteral("Ryland"), 2100, SceneStatus::Drafted    },
-                        { 5, QStringLiteral("Rocky"),                    {},                         450, SceneStatus::Drafted    },
-                        { 6, QStringLiteral("First Contact Protocol"),   QStringLiteral("Rocky"),     0, SceneStatus::NotStarted },
-                        };
-
-        manuscript << act1 << act2;
-        sideBar->manuscriptPanel()->setManuscript(manuscript);
-    }
-
-    // ── Wire scene selection to workspace ────────────────────
-    connect(sideBar->manuscriptPanel(), &ManuscriptPanel::sceneSelected,
-            this, [](int sceneNum) {
-                qDebug("MainWindow: open scene %d in editor", sceneNum);
-                // TODO: drive editor pane
-            });
-
-    // Main content pane (right of sidebar — future editor area)
     QWidget* contentPane = new QWidget(mainContentArea);
     contentPane->setObjectName(QStringLiteral("contentPane"));
     contentPane->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     contentLayout->addWidget(contentPane);
-
     mainLayout->addWidget(mainContentArea);
+
+    QVBoxLayout* contentPaneLayout = new QVBoxLayout(contentPane);
+    contentPaneLayout->setContentsMargins(0, 0, 0, 0);
+    contentPaneLayout->setSpacing(0);
+
+    ConceptView* conceptView = new ConceptView(contentPane);
+    contentPaneLayout->addWidget(conceptView);
 
     // ══════════════════════════════════════════
     // 5. QSS

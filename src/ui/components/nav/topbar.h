@@ -4,7 +4,6 @@
 #include <QWidget>
 
 class TitleBar;
-class ConceptRail;
 class StageRail;
 
 class TopBar : public QWidget
@@ -13,9 +12,6 @@ class TopBar : public QWidget
 public:
     explicit TopBar(QWidget *parent = nullptr);
 private:
-    void onPhaseChanged(const QString& phase);
-
-    ConceptRail* m_conceptRail  = nullptr;
     TitleBar*    m_titleBar     = nullptr;
     StageRail*   m_stageRail    = nullptr;
     QString      m_phaseLabel;
