@@ -42,8 +42,7 @@ void NavPillWidget::paintEvent(QPaintEvent *) {
             p.fillRect(0, 8, 2, height() - 16, kAccent);
 
         const int iconX = (width() - m_svgSize) / 2;
-        bool shouldUseActive = active;
-        QSvgRenderer* rdr = shouldUseActive ? m_activeRenderer : m_inactiveRenderer;
+        QSvgRenderer* rdr = active ? m_activeRenderer : m_inactiveRenderer;
         rdr->render(&p, QRectF(iconX, 10, m_svgSize, m_svgSize)); // icon
 
         QFont font("DM Mono");

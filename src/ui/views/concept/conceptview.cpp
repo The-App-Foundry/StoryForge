@@ -1,6 +1,6 @@
 #include "conceptview.h"
 #include "premise/premise.h"
-#include "../../components/nav/conceptrail.h"
+#include "ui/components/nav/conceptrail.h"
 #include <QStackedWidget>
 #include <QVBoxLayout>
 
@@ -36,7 +36,7 @@ ConceptView::ConceptView(QWidget *parent)
     m_stacked->addWidget(premisePane);
     contentLayout->addWidget(m_stacked);
     
-    connect(m_rail, &ConceptRail::navItemSelect,
+    connect(m_rail, &ConceptRail::navItemSelected,
             this, &ConceptView::onNavItemSelected);
 }
 

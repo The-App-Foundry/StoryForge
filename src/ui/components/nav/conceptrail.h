@@ -12,7 +12,7 @@ class ConceptRail : public QFrame
 public:
     explicit ConceptRail(QWidget* parent = nullptr);
 signals:
-    void navItemSelect(const QString& section);
+    void navItemSelected(const QString& section);
 private:
     void buildNavButtons();
 

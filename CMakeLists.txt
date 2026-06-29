@@ -58,7 +58,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resources/icons/document.svg
         resources/icons/edit.svg
         src/ui/components/buttons/iconbutton.h src/ui/components/buttons/iconbutton.cpp
-        src/ui/components/editor/concept/premise/editstate.h src/ui/components/editor/concept/premise/editstate.cpp
+        src/ui/components/editor/concept/premise/formgroup.h src/ui/components/editor/concept/premise/formgroup.cpp
+        src/ui/components/editor/concept/premise/form.h src/ui/components/editor/concept/premise/form.cpp
+        src/ui/views/concept/premise/premisedata.h
+
 
     )
 # Define target properties for Android with Qt 6 as:
@@ -110,6 +113,11 @@ install(TARGETS StoryForge
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+target_include_directories(StoryForge PUBLIC
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
 if(QT_VERSION_MAJOR EQUAL 6)
