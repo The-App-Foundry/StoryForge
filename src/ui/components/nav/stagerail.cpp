@@ -100,7 +100,7 @@ StageRail::StageRail(QWidget *parent)
 
     });
 
-    QFile styleFile(":/stagerailstyles.qss");
+    QFile styleFile(":/styles/stagerailstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

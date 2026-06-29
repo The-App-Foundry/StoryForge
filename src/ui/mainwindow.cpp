@@ -59,7 +59,7 @@ MainWindow::MainWindow(QWidget* parent)
     // ══════════════════════════════════════════
     // 5. QSS
     // ══════════════════════════════════════════
-    QFile styleFile(QStringLiteral(":/styles.qss"));
+    QFile styleFile(QStringLiteral(":/styles/styles.qss"));
     if (styleFile.open(QFile::ReadOnly | QFile::Text)) {
         setStyleSheet(QLatin1String(styleFile.readAll()));
         styleFile.close();

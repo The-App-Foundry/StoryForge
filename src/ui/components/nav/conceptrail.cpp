@@ -19,7 +19,7 @@ ConceptRail::ConceptRail(QWidget* parent)
 
     layout->addStretch(1);
 
-    QFile styleFile(":/conceptrailstyles.qss");
+    QFile styleFile(":/styles/conceptrailstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

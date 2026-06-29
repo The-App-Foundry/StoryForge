@@ -1,0 +1,40 @@
+#premiseView {
+  max-width: 760px;
+  margin: 0px auto;
+  padding: 44px 56px 120px;
+}
+
+#emptySvgIcon {
+  margin-bottom: 14px;
+  opacity: 0.3;
+}
+
+#emptyStateWidget {
+  border: 1.5px dashed rgba(68,76,86,0.9);
+}
+
+#emptyStartEditingBtn {
+  background: transparent;
+  border: 1px solid #444c56;
+  border-radius: 0;
+  margin-top: 20px;
+  padding: 6px 16px;
+  font-size: 10px;
+  font-family: "DM MONO", monospace;
+  color: #8b949e;
+}
+
+#emptyStartEditingBtn:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+#emptyMainText {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+#label {
+}

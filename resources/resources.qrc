@@ -1,14 +1,20 @@
 <RCC>
     <qresource prefix="/">
-        <file>styles.qss</file>
-        <file>navrailstyles.qss</file>
-        <file>manuscriptpanelstyles.qss</file>
-        <file>storymenustyles.qss</file>
-        <file>topbarstyles.qss</file>
-        <file>stagerailstyles.qss</file>
-        <file>conceptrailstyles.qss</file>
-        <file>premisestyles.qss</file>
+        <file>fonts/DM_Mono/DMMono-Italic.ttf</file>
+        <file>fonts/DM_Mono/DMMono-Light.ttf</file>
+        <file>fonts/DM_Mono/DMMono-LightItalic.ttf</file>
+        <file>fonts/DM_Mono/DMMono-Medium.ttf</file>
+        <file>fonts/DM_Mono/DMMono-MediumItalic.ttf</file>
+        <file>fonts/DM_Mono/DMMono-Regular.ttf</file>
         <file>icons/document.svg</file>
         <file>icons/edit.svg</file>
+        <file>styles/conceptrailstyles.qss</file>
+        <file>styles/manuscriptpanelstyles.qss</file>
+        <file>styles/navrailstyles.qss</file>
+        <file>styles/premisestyles.qss</file>
+        <file>styles/stagerailstyles.qss</file>
+        <file>styles/storymenustyles.qss</file>
+        <file>styles/styles.qss</file>
+        <file>styles/topbarstyles.qss</file>
     </qresource>
 </RCC>

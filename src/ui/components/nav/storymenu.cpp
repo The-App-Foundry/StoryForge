@@ -32,7 +32,7 @@ StoryMenu::StoryMenu(QWidget *parent)
 
     this->setMenu(m_dropdown);
 
-    QFile styleFile(":/storymenustyles.qss");
+    QFile styleFile(":/styles/storymenustyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

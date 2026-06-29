@@ -67,7 +67,7 @@ NavRail::NavRail(QWidget *parent)
 
     buildFooter();
 
-    QFile styleFile(":/navrailstyles.qss");
+    QFile styleFile(":/styles/navrailstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

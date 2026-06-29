@@ -20,7 +20,7 @@ TopBar::TopBar(QWidget *parent)
     layout->addWidget(m_titleBar);
     layout->addWidget(m_stageRail);
 
-    QFile styleFile(":/topbarstyles.qss");
+    QFile styleFile(":/styles/topbarstyles.qss");
 
     if(styleFile.open(QFile::ReadOnly | QFile::Text)) {
         QString styleSheet = QLatin1String(styleFile.readAll());

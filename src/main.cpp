@@ -3,10 +3,16 @@
 #include <QApplication>
 #include <QLocale>
 #include <QTranslator>
+#include <QFontDatabase>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QFontDatabase::addApplicationFont(":/fonts/DMMono.ttf");
+    QFont font("DM Mono");
+    font.setStyleStrategy(QFont::PreferAntialias);
+    a.setFont(font);
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
