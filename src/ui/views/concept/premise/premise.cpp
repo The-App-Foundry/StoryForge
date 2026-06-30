@@ -1,5 +1,5 @@
 #include "premise.h"
-#include "../../../components/editor/concept/premise/emptystatewidget.h"
+#include "ui/components/editor/concept/premise/emptystatewidget.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QStackedWidget>

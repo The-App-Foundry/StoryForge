@@ -1,6 +1,6 @@
 #include "emptystatewidget.h"
-#include "../../../../utils/graphicsutils.h"
-#include "../../../buttons/iconbutton.h"
+#include "ui/utils/graphicsutils.h"
+#include "ui/components/buttons/iconbutton.h"
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QtSvgWidgets/QtSvgWidgets>
@@ -12,7 +12,6 @@
 EmptyStateWidget::EmptyStateWidget(QWidget *parent)
     : QWidget{parent}
 {
-
     setAttribute(Qt::WA_StyledBackground, true);
 
     setObjectName("emptyStateWidget");

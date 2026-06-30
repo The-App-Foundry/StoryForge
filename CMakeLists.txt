@@ -27,21 +27,22 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         resources/resources.qrc
-        resources/styles.qss
+        resources/styles/styles.qss
+        resources/styles/navrailstyles.qss
+        resources/styles/manuscriptpanelstyles.qss
+        resources/styles/storymenustyles.qss
+        resources/styles/topbarstyles.qss
+        resources/styles/stagerailstyles.qss
+        resources/styles/conceptrailstyles.qss
         src/ui/components/nav/sidebar.h src/ui/components/nav/sidebar.cpp
         src/ui/components/nav/navrail.h src/ui/components/nav/navrail.cpp
-        resources/navrailstyles.qss
         src/ui/components/nav/manuscriptpanel.h src/ui/components/nav/manuscriptpanel.cpp
         src/ui/components/nav/actsectionheader.h src/ui/components/nav/actsectionheader.cpp
         src/ui/components/nav/scenedata.h
         src/ui/components/nav/scenerow.h src/ui/components/nav/scenerow.cpp
-        resources/manuscriptpanelstyles.qss
         src/ui/components/nav/topbar.h src/ui/components/nav/topbar.cpp
         src/ui/components/nav/storymenu.h src/ui/components/nav/storymenu.cpp
         src/ui/components/nav/storymenurow.h src/ui/components/nav/storymenurow.cpp
-        resources/storymenustyles.qss
-        resources/topbarstyles.qss
-
         src/ui/meta.h
         src/ui/components/nav/conceptrail.h src/ui/components/nav/conceptrail.cpp
         src/ui/components/nav/navpillwidget.cpp
@@ -49,11 +50,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         src/ui/utils/graphicsutils.h src/ui/utils/graphicsutils.cpp
         src/ui/components/nav/stagerail.h src/ui/components/nav/stagerail.cpp
         src/ui/components/nav/titlebar.h src/ui/components/nav/titlebar.cpp
-        resources/stagerailstyles.qss
-        resources/conceptrailstyles.qss
         src/ui/views/concept/conceptview.h src/ui/views/concept/conceptview.cpp
         src/ui/views/concept/premise/premise.h src/ui/views/concept/premise/premise.cpp
-        resources/premisestyles.qss
+        resources/styles/premisestyles.qss
         src/ui/components/editor/concept/premise/emptystatewidget.h src/ui/components/editor/concept/premise/emptystatewidget.cpp
         resources/icons/document.svg
         resources/icons/edit.svg
