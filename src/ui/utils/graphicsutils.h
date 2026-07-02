@@ -9,6 +9,7 @@ class GraphicsUtils {
 public:
     static QByteArray makeSvg(const QString& paths, const QColor& stroke); // TODO: add QSize param for changing size.
 
+    static QByteArray loadSvg(const QString& path);
     static QByteArray loadSvg(const QString& path,
                               const QString& stroke);
 

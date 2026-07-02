@@ -21,11 +21,26 @@ QByteArray GraphicsUtils::makeSvg(const QString& paths, const QColor& stroke)
                ).arg(stroke.name(), paths).toUtf8();
 }
 
-QByteArray GraphicsUtils::loadSvg(const QString& resourcePath,
+QByteArray GraphicsUtils::loadSvg(const QString& path)
+{
+    QString svg;
+    QFile svgFile(path);
+
+    if(svgFile.open(QFile::ReadOnly | QFile::Text)) {
+        svg = QString::fromLatin1(svgFile.readAll());
+        svgFile.close();
+    } else {
+        qWarning();
+    }
+
+    return svg.toUtf8();
+}
+
+QByteArray GraphicsUtils::loadSvg(const QString& path,
                                   const QString& stroke)
 {
     QString svg;
-    QFile svgFile(resourcePath);
+    QFile svgFile(path);
 
     if(svgFile.open(QFile::ReadOnly | QFile::Text)) {
         svg = QString::fromLatin1(svgFile.readAll());

@@ -34,7 +34,7 @@ ConceptView::ConceptView(QWidget *parent)
 
     m_stacked = new QStackedWidget(mainArea);
     m_stacked->addWidget(premisePane);
-    contentLayout->addWidget(m_stacked);
+    contentLayout->addWidget(m_stacked, 0, Qt::AlignCenter);
     
     connect(m_rail, &ConceptRail::navItemSelected,
             this, &ConceptView::onNavItemSelected);

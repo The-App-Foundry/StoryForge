@@ -16,5 +16,6 @@
         <file>styles/storymenustyles.qss</file>
         <file>styles/styles.qss</file>
         <file>styles/topbarstyles.qss</file>
+        <file>icons/check.svg</file>
     </qresource>
 </RCC>
